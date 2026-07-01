@@ -1,0 +1,83 @@
+Day 3
+---------------
+
+SQL Identifiers
+
+---------------------
+
+SQL identifiers are names used to identify database objects such as
+
+database names, Table names, column names, view names, index names, constraints, triggers, stored procedures
+
+while we are declaring an identifiers we have to follow some rules and regulations
+
+1. the only Identifiers can contain a-z or A-Z or 0-9 ,_,$
+2. must be begin with a letter or underscore(_).
+3. we cant declare identifiers with reserved keyword.
+4. spaces are not considered to declare identifiers
+5. identifiers are case sensitive
+6. max length to declare identifiers are 15 characters.
+
+
+SQL(Structured Query Language)
+-------------------------------------
+
+SQL is a standardized programming language specially designed for managing and manipulation relational databases. It provides declarative syntax that allows users to define what data they want retrieve, Insert, or delete without specifying exactly how database executes these operations.
+
+
+
+SQL Commands
+
+1. DDL                       2. DML              3. DCL            4. TCL              |   5. DQL         
+---------------------------------------------------------------------------------------|---------------                           
+> CREATE                   > INSERT             > GRANT            > COMMIT            |  > SELECT
+> ALTER                    > UPDATE             > REVOKE           > ROLLBACK          |
+> DROP                     > DELETE                                > SAVEPOINT         |
+> TRUNCATE                 > LOCK                                                      |
+> RENAME                                                                               |
+
+
+
+DDL
+--------------
+1. Create : it creates a new databases, tables, views, indexes, triggers, stored procedures etc
+syntax :
+
+create tablename(
+col-name datatype size,
+co-name datatype size);
+
+2. Alter : this alter command to modify the structure of an existing database object
+3. Drop : by using this command we can drop existing table permanently
+4. Truncate : it deletes all rows in a table
+5. rename : used to rename the table or column names etc
+
+
+
+DML
+--------------
+1. Insert : using this command we can insert some records into a table
+2. update : using this command we can update the existing records based on some condition
+3. Delete : by using this command we can delete existing table record based on some condition 
+4. Lock : it can be used to control access to a resource, ensuring that only one transaction. can access it at time of preventing conflicts.
+
+
+DCL
+-------------
+
+1. Grant : command used to give specific permission to a user in database this permission might be include the ability to select or update or delete data as we as create or drop tables
+2. Revoke : to take away grant access from user
+
+
+TCL
+-------------
+
+1. Commit : Commits a Transaction or used to save the changes permanently during current transaction
+2. Rollback : Rollbacks a transaction in case of any error occurs.
+3. Savepoint : Sets a savepoint within a transaction. which you can rollback later 
+
+
+DQL
+---------------
+
+1. Select : used to retrieve the data from one or more tables in db.
