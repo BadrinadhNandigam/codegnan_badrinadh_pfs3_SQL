@@ -1,0 +1,123 @@
+Day1
+---------
+Frontend
+------------
+
+1. The part of the website that the user interacts with directly is called frontend
+2. frontend it is also referred as client side of the application
+3. it includes everything that user experience directly
+4. HTML, CSS,JS,Bootstrap are the langauges used for frontend development
+
+Backend
+---------------
+
+1. Backend is the server side of the website
+2. it stores and arranges the data also make sure everything on the client side of the web site works fine
+3. in backend there are some languages like java,python,php, dot net etc
+
+API
+------------
+
+Application programming interface is the collection of protocols used by various programming to communicate b/w them
+
+
+Storage areas
+-------------
+
+as part of our application we required to store data like customer info, billing info, calls info etc
+
+to store this data we require storage areas
+
+2 types of storage area such as
+
+1. Temporary storage areas
+-----------------------------------
+These are the memory areas where the data will be stored temporarly
+eg: all pvm memeory areas(like heap area, stack area,method area,pc registers, native method stacks). once pvm shutdown all these memory areas will be cleared automatically
+
+2. Permanent storage areas
+-----------------------------------
+also know as persistant storage area. here we can store data permanantely
+
+ex: file systems, databases,data warehouse,bigdata etc
+
+File Manaagement system
+----------------------------------
+
+A file management system is a system where data is stored in files on the operating systems, each supplication program must handle its own storage data
+retrieval and updating. File systems can be provided by the local operating system
+
+ex: A library management system storing  books in separate text files likes, books.txt, members.txt
+
+Limitations
+--------------------
+1. Data redundancy : same data stored in multiple files
+2. Data inconsistency : Updates in  one file may not be reflected in another
+3. poor data security : No proper accessed control
+4. Difficult data Retrival : Searching requires custom programs
+5. Integrity Issue : No constraints( eg: rollnumber uniqueness)
+6. scalability Issues : Hard to manage as data grows
+
+to overcome above problems in file management systems we go for database
+
+DBMS
+-------------------
+A collections of programs that enables user to create, manage and manipulate databases
+
+it acts as an interface b/w user and database
+
+adv
+-----
+
+1. we can store huge amount of info in db
+2. query language support is available for every db hence we can perform db operations easily
+3. To accesses data present in database, compulsory username and password must be required. hence data is secured
+4. inside db data will be stored in the form of tables. while developing db table schemas, database admin follow various normalization
+techniques and we can implement various constraints like unique constraint, primary key constraints etc which prevents data duplication. hence there is no chance of data inconsistency problems
+
+Limitations
+---------------
+
+1. DB cannot store huge amount of information like terabytes(1000gb) of data
+2. DB can provide support for only structured data (tabular data or relational data) and cannot provide support for semi structured data like(XML files) and unstructured data(like files, audio, image etc)
+
+to overcome these limitations we should go for advanced storage areas like bigdata, data warehouse etc
+
+
+Differences b/w File Management system and Database management system
+------------------------------------------------------------------------------
+
+1. data is stored in separate files
+ data is stored in structed database
+2. High data redundancy 
+ reduces data redundancy
+3. Security Is limited
+   provides strong security
+
+4. Data sharing difficult
+   multiple users can access data
+5. No relation b/w files
+   supports relationship b/w tables
+
+6. Back and recovery are difficult
+  provides back and recovery features
+
+7. Data inconsistency may occur anomalies
+  maintain data consistency and integrity
+
+8. suitable for small applications
+ suitable for small, medium, large applications
+
+IQ what is  diff b/w FMS and DBMS
+
+a file system stores data in separate files and may lead to data redundancy, and security issues, A dbms stores data in structured manner using tables, reduces redundancy provides security, support multiple users, and ensures data consistency and integrity
+
+What is data field
+
+
+
+
+
+
+
+
