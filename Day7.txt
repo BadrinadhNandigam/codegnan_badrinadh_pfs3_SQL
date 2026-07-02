@@ -1,0 +1,119 @@
+Constraints
+----------------------
+
+Constraints are rules applied to a table columns in MySQL to ensure that only valid and accurate data is stored in the database
+
+
+why do we use constraints
+----------------------------
+1. Maintain Data Integrity
+2. To Prevent invalid data entry
+3. Avoid duplicate Records
+4. ensures relations between tables
+5. make the data base reliable and constraints
+
+Types of constraints
+------------------------
+
+1. Not Null : it doesn't allow null 
+2. Unique key : doesn't use dup
+3. Primary key
+4. Composite key
+5. Foreign key
+6. check constraints
+
+
+Foreign key
+------
+> It is a field in one table that refers to the primary key in another table
+> the table containing the foreign key is called child table. and the table containing the candidate key is called reference table or parent tablemysql> use pfs3;
+Database changed
+mysql> create table school (
+    -> sno int(3),
+    -> sname varchar(30),
+    -> marks int(3),
+    -> primanry key(sno));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key(sno))' at line 5
+mysql> create table school (
+    -> sno int(3),
+    -> sname varchar(30),
+    -> marks int(3),
+    -> primary key(sno));
+Query OK, 0 rows affected, 2 warnings (1.61 sec)
+
+mysql> create table library(
+    -> book_name varchar(30),
+    -> foreign key(sno)
+    -> references school(sno));
+ERROR 1072 (42000): Key column 'sno' doesn't exist in table
+mysql> create table library(
+    -> book_name varchar(30),
+    -> sno int(3),
+    -> foreign key (sno) references school(sno));
+Query OK, 0 rows affected, 1 warning (0.32 sec)
+
+mysql> insert into school values (100,'badri',95),
+    -> (102,'Arjun',90);
+Query OK, 2 rows affected (0.47 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into library values ('python',101);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`pfs3`.`library`, CONSTRAINT `library_ibfk_1` FOREIGN KEY (`sno`) REFERENCES `school` (`sno`))
+mysql> insert into library values ('python',100);
+Query OK, 1 row affected (0.31 sec)
+
+mysql> SELECT * FROM school;
++-----+-------+-------+
+| sno | sname | marks |
++-----+-------+-------+
+| 100 | badri |    95 |
+| 102 | Arjun |    90 |
++-----+-------+-------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT * FROM library;
++-----------+------+
+| book_name | sno  |
++-----------+------+
+| python    |  100 |
++-----------+------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO library VALUES ('Java', 102);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM library;
++-----------+------+
+| book_name | sno  |
++-----------+------+
+| python    |  100 |
+| Java      |  102 |
++-----------+------+
+2 rows in set (0.00 sec)
+
+mysql> select s.no,s.name,l.book_name
+    -> from school s
+    -> inner join library l
+    -> on s.no = l.sno;
+ERROR 1054 (42S22): Unknown column 's.no' in 'field list'
+mysql> select s.no,s.name,l.book_name
+    -> from school s
+    -> inner join library l
+    -> on s.sno = l.sno;
+ERROR 1054 (42S22): Unknown column 's.no' in 'field list'
+mysql> select s.sno,s.sname,l.book_name
+    -> from school s
+    -> inner join library l
+    -> on s.sno = l.sno;
++-----+-------+-----------+
+| sno | sname | book_name |
++-----+-------+-----------+
+| 100 | badri | python    |
+| 102 | Arjun | Java      |
++-----+-------+-----------+
+2 rows in set (0.00 sec)
+
+1. On delete casecade : when a parent table row is deleted all matching child rows are automatically deleted.
+
+2. 
+mysql> NOTEE
