@@ -1,0 +1,319 @@
+Approach 1
+---------------
+
+INSERT INTO TABLE-NAME(column1, column2,...) values(value1,value2,...);mysql> appraoch 3
+    -> insert into table-name(particular columns you required) values(particular values);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'appraoch 3
+insert into table-name(particular columns you required) values(partic' at line 1
+mysql> -- insert into table-name(particular columns you required) values(particular values);
+mysql> insert into employees(firstname,doj,lastname,empid,address)
+    -> values
+    -> ('Bhanu','1989-02-12','Sai','E008','VIJAYAWADA');
+Query OK, 1 row affected (0.33 sec)
+
+mysql> select * from employees;
++-------+-----------+----------+------+------------+----------------+------------+
+| empid | firstname | lastname | age  | doj        | address        | dept       |
++-------+-----------+----------+------+------------+----------------+------------+
+| E001  | BADRINADH | NANDIGAM |   22 | 2026-05-11 | VSP            | PYTHON     |
+| E002  | ARJUN     | SARKAAR  |   28 | 2025-05-01 | HYD            | FINANCE    |
+| E003  | POOJA     | REDDY    |   23 | 2025-11-14 | PUNE           | ANALYST    |
+| E004  | ASHOK     | KUMAR    |   25 | 2025-11-27 | CHN            | PROGRAMMER |
+| E005  | ROHIT     | SHARMA   |   45 | 2001-12-23 | MUMBAI         | MARKETING  |
+| E006  | SANVI     | PATEL    |   26 | 2002-03-04 | BLR            | TESTING    |
+| E007  | sai       | kiran    |   32 | 2021-08-23 | Andhra Pradesh | admin      |
+| E008  | Bhanu     | Sai      | NULL | 1989-02-12 | VIJAYAWADA     | NULL       |
++-------+-----------+----------+------+------------+----------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> insert into employees(empid,firstname,age,address,dept) values ('E009','Lavanya',21,'DELHI', 'QEA');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employees;
++-------+-----------+----------+------+------------+----------------+------------+
+| empid | firstname | lastname | age  | doj        | address        | dept       |
++-------+-----------+----------+------+------------+----------------+------------+
+| E001  | BADRINADH | NANDIGAM |   22 | 2026-05-11 | VSP            | PYTHON     |
+| E002  | ARJUN     | SARKAAR  |   28 | 2025-05-01 | HYD            | FINANCE    |
+| E003  | POOJA     | REDDY    |   23 | 2025-11-14 | PUNE           | ANALYST    |
+| E004  | ASHOK     | KUMAR    |   25 | 2025-11-27 | CHN            | PROGRAMMER |
+| E005  | ROHIT     | SHARMA   |   45 | 2001-12-23 | MUMBAI         | MARKETING  |
+| E006  | SANVI     | PATEL    |   26 | 2002-03-04 | BLR            | TESTING    |
+| E007  | sai       | kiran    |   32 | 2021-08-23 | Andhra Pradesh | admin      |
+| E008  | Bhanu     | Sai      | NULL | 1989-02-12 | VIJAYAWADA     | NULL       |
+| E009  | Lavanya   | NULL     |   21 | NULL       | DELHI          | QEA        |
++-------+-----------+----------+------+------------+----------------+------------+
+9 rows in set (0.00 sec)
+
+
+Approach 4
+-----------
+insert into table-name set column-name = value, column-name=value,...;
+mysql> insert into employees set empid = 'E010', firstname = 'Sudheer', Lastname = 'Kumar', age = 33, doj = '2021-03-14', address = 'KOLKATA', dept = 'Service desk';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employees;
++-------+-----------+----------+------+------------+----------------+--------------+
+| empid | firstname | lastname | age  | doj        | address        | dept         |
++-------+-----------+----------+------+------------+----------------+--------------+
+| E001  | BADRINADH | NANDIGAM |   22 | 2026-05-11 | VSP            | PYTHON       |
+| E002  | ARJUN     | SARKAAR  |   28 | 2025-05-01 | HYD            | FINANCE      |
+| E003  | POOJA     | REDDY    |   23 | 2025-11-14 | PUNE           | ANALYST      |
+| E004  | ASHOK     | KUMAR    |   25 | 2025-11-27 | CHN            | PROGRAMMER   |
+| E005  | ROHIT     | SHARMA   |   45 | 2001-12-23 | MUMBAI         | MARKETING    |
+| E006  | SANVI     | PATEL    |   26 | 2002-03-04 | BLR            | TESTING      |
+| E007  | sai       | kiran    |   32 | 2021-08-23 | Andhra Pradesh | admin        |
+| E008  | Bhanu     | Sai      | NULL | 1989-02-12 | VIJAYAWADA     | NULL         |
+| E009  | Lavanya   | NULL     |   21 | NULL       | DELHI          | QEA          |
+| E007  | sai       | kiran    |   32 | 2021-08-23 | Andhra Pradesh | admin        |
+| E010  | Sudheer   | Kumar    |   33 | 2021-03-14 | KOLKATA        | Service desk |
++-------+-----------+----------+------+------------+----------------+--------------+
+11 rows in set (0.00 sec)
+
+
+UPDATE
+------------
+
+UPDATE TABLE-NAME SET COLUMN-NAME = VALUE WHERE CONDITION;
+
+
+mysql> update employees set lastname = 'KUMAR where firstname = 'ARUN';
+    '> update employees set age = 24 where firstname = 'Bhanu';
+    '> select * from employees;
+    '> /c
+    '> update employees set age = 24 where firstname = 'Bhanu';
+    '> edew
+    '> fwef
+    '> 
+    '> 
+    '> 
+    '> 
+    '> 
+    '> /c
+    '> NOTEE
+    '> 
+    '> 
+    '> /c
+    '> update employees set lastname = 'KUMAR' where firstname = 'ARUN';
+    '> exit
+    '> update employees set age = 24 where empid = 'E008';
+    '> TEE
+    '> Terminal close -- exit!
+mysql> select * from employees;
+ERROR 1046 (3D000): No database selected
+mysql> use pfs3;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_pfs3 |
++----------------+
+| company_staff  |
+| employees      |
++----------------+
+2 rows in set (0.07 sec)
+
+mysql> select * from employees;
++-------+-----------+----------+------+------------+----------------+--------------+
+| empid | firstname | lastname | age  | doj        | address        | dept         |
++-------+-----------+----------+------+------------+----------------+--------------+
+| E001  | BADRINADH | NANDIGAM |   22 | 2026-05-11 | VSP            | PYTHON       |
+| E002  | ARJUN     | SARKAAR  |   28 | 2025-05-01 | HYD            | FINANCE      |
+| E003  | POOJA     | REDDY    |   23 | 2025-11-14 | PUNE           | ANALYST      |
+| E004  | ASHOK     | KUMAR    |   25 | 2025-11-27 | CHN            | PROGRAMMER   |
+| E005  | ROHIT     | SHARMA   |   45 | 2001-12-23 | MUMBAI         | MARKETING    |
+| E006  | SANVI     | PATEL    |   26 | 2002-03-04 | BLR            | TESTING      |
+| E007  | sai       | kiran    |   32 | 2021-08-23 | Andhra Pradesh | admin        |
+| E008  | Bhanu     | Sai      | NULL | 1989-02-12 | VIJAYAWADA     | NULL         |
+| E009  | Lavanya   | NULL     |   21 | NULL       | DELHI          | QEA          |
+| E007  | sai       | kiran    |   32 | 2021-08-23 | Andhra Pradesh | admin        |
+| E010  | Sudheer   | Kumar    |   33 | 2021-03-14 | KOLKATA        | Service desk |
+| E007  | sai       | kiran    |   32 | 2021-08-23 | Andhra Pradesh | admin        |
+| E007  | sai       | kiran    |   32 | 2021-08-23 | Andhra Pradesh | admin        |
+| E007  | sai       | kiran    |   32 | 2021-08-23 | Andhra Pradesh | admin        |
++-------+-----------+----------+------+------------+----------------+--------------+
+14 rows in set (0.01 sec)
+
+mysql> delete from employees where firstname = 'sai';
+Query OK, 5 rows affected (0.05 sec)
+
+mysql> select * from employees;
++-------+-----------+----------+------+------------+------------+--------------+
+| empid | firstname | lastname | age  | doj        | address    | dept         |
++-------+-----------+----------+------+------------+------------+--------------+
+| E001  | BADRINADH | NANDIGAM |   22 | 2026-05-11 | VSP        | PYTHON       |
+| E002  | ARJUN     | SARKAAR  |   28 | 2025-05-01 | HYD        | FINANCE      |
+| E003  | POOJA     | REDDY    |   23 | 2025-11-14 | PUNE       | ANALYST      |
+| E004  | ASHOK     | KUMAR    |   25 | 2025-11-27 | CHN        | PROGRAMMER   |
+| E005  | ROHIT     | SHARMA   |   45 | 2001-12-23 | MUMBAI     | MARKETING    |
+| E006  | SANVI     | PATEL    |   26 | 2002-03-04 | BLR        | TESTING      |
+| E008  | Bhanu     | Sai      | NULL | 1989-02-12 | VIJAYAWADA | NULL         |
+| E009  | Lavanya   | NULL     |   21 | NULL       | DELHI      | QEA          |
+| E010  | Sudheer   | Kumar    |   33 | 2021-03-14 | KOLKATA    | Service desk |
++-------+-----------+----------+------+------------+------------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> update employees set age = 24 where empid = 'E008';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employees;
++-------+-----------+----------+------+------------+------------+--------------+
+| empid | firstname | lastname | age  | doj        | address    | dept         |
++-------+-----------+----------+------+------------+------------+--------------+
+| E001  | BADRINADH | NANDIGAM |   22 | 2026-05-11 | VSP        | PYTHON       |
+| E002  | ARJUN     | SARKAAR  |   28 | 2025-05-01 | HYD        | FINANCE      |
+| E003  | POOJA     | REDDY    |   23 | 2025-11-14 | PUNE       | ANALYST      |
+| E004  | ASHOK     | KUMAR    |   25 | 2025-11-27 | CHN        | PROGRAMMER   |
+| E005  | ROHIT     | SHARMA   |   45 | 2001-12-23 | MUMBAI     | MARKETING    |
+| E006  | SANVI     | PATEL    |   26 | 2002-03-04 | BLR        | TESTING      |
+| E008  | Bhanu     | Sai      |   24 | 1989-02-12 | VIJAYAWADA | NULL         |
+| E009  | Lavanya   | NULL     |   21 | NULL       | DELHI      | QEA          |
+| E010  | Sudheer   | Kumar    |   33 | 2021-03-14 | KOLKATA    | Service desk |
++-------+-----------+----------+------+------------+------------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> update employees set doj = '2021-12-05' where empid = 'E009';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employees;
++-------+-----------+----------+------+------------+------------+--------------+
+| empid | firstname | lastname | age  | doj        | address    | dept         |
++-------+-----------+----------+------+------------+------------+--------------+
+| E001  | BADRINADH | NANDIGAM |   22 | 2026-05-11 | VSP        | PYTHON       |
+| E002  | ARJUN     | SARKAAR  |   28 | 2025-05-01 | HYD        | FINANCE      |
+| E003  | POOJA     | REDDY    |   23 | 2025-11-14 | PUNE       | ANALYST      |
+| E004  | ASHOK     | KUMAR    |   25 | 2025-11-27 | CHN        | PROGRAMMER   |
+| E005  | ROHIT     | SHARMA   |   45 | 2001-12-23 | MUMBAI     | MARKETING    |
+| E006  | SANVI     | PATEL    |   26 | 2002-03-04 | BLR        | TESTING      |
+| E008  | Bhanu     | Sai      |   24 | 1989-02-12 | VIJAYAWADA | NULL         |
+| E009  | Lavanya   | NULL     |   21 | 2021-12-05 | DELHI      | QEA          |
+| E010  | Sudheer   | Kumar    |   33 | 2021-03-14 | KOLKATA    | Service desk |
++-------+-----------+----------+------+------------+------------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> update employees set lastname = 'Sesti' where empid = 'E009';
+Query OK, 1 row affected (0.34 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employees;
++-------+-----------+----------+------+------------+------------+--------------+
+| empid | firstname | lastname | age  | doj        | address    | dept         |
++-------+-----------+----------+------+------------+------------+--------------+
+| E001  | BADRINADH | NANDIGAM |   22 | 2026-05-11 | VSP        | PYTHON       |
+| E002  | ARJUN     | SARKAAR  |   28 | 2025-05-01 | HYD        | FINANCE      |
+| E003  | POOJA     | REDDY    |   23 | 2025-11-14 | PUNE       | ANALYST      |
+| E004  | ASHOK     | KUMAR    |   25 | 2025-11-27 | CHN        | PROGRAMMER   |
+| E005  | ROHIT     | SHARMA   |   45 | 2001-12-23 | MUMBAI     | MARKETING    |
+| E006  | SANVI     | PATEL    |   26 | 2002-03-04 | BLR        | TESTING      |
+| E008  | Bhanu     | Sai      |   24 | 1989-02-12 | VIJAYAWADA | NULL         |
+| E009  | Lavanya   | Sesti    |   21 | 2021-12-05 | DELHI      | QEA          |
+| E010  | Sudheer   | Kumar    |   33 | 2021-03-14 | KOLKATA    | Service desk |
++-------+-----------+----------+------+------------+------------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> drop table employees;
+Query OK, 0 rows affected (0.30 sec)
+
+mysql> create table employees(
+    -> empid int auto_increment,
+    -> name varchar(100),
+    -> department varchar(50)
+    -> );
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> create table employees(
+    -> empid int auto_increment primary key,
+    -> name varchar(100),
+    -> department varchar(50)
+    -> );
+Query OK, 0 rows affected (0.52 sec)
+
+mysql> insert into employees (name,department)
+    -> values
+    -> ('Badrinadh','IT'),
+    -> ('Bindhu', 'HR');
+Query OK, 2 rows affected (0.33 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from employees;
++-------+-----------+------------+
+| empid | name      | department |
++-------+-----------+------------+
+|     1 | Badrinadh | IT         |
+|     2 | Bindhu    | HR         |
++-------+-----------+------------+
+2 rows in set (0.00 sec)
+
+mysql> create table backupemployees as
+    -> select * from employees;
+Query OK, 2 rows affected (0.14 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> desc backupemployees;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| empid      | int          | NO   |     | 0       |       |
+| name       | varchar(100) | YES  |     | NULL    |       |
+| department | varchar(50)  | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+3 rows in set (0.04 sec)
+
+mysql> select * from backupemployees;
++-------+-----------+------------+
+| empid | name      | department |
++-------+-----------+------------+
+|     1 | Badrinadh | IT         |
+|     2 | Bindhu    | HR         |
++-------+-----------+------------+
+2 rows in set (0.00 sec)
+
+mysql> create table products (
+    -> ProductId int primary key,
+    -> Price Decimal(10,2),
+    -> Quantity int,
+    -> TotalAmount Decimal(10,2) generated always(Price * Quantity) stored
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(Price * Quantity) stored
+)' at line 5
+mysql> create table products (
+    -> ProductId int primary key,
+    -> Price Decimal(10,2),
+    -> Quantity int,
+    -> TotalAmount Decimal(10,2) generated always as (Price * Quantity) stored
+    -> );
+Query OK, 0 rows affected (0.41 sec)
+
+mysql> select * from products;
+Empty set (0.00 sec)
+
+mysql> insert into products(ProductId, Price, Quantity)
+    -> values
+    -> (1,50,3),
+    -> (2,100.24,6);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from products;
++-----------+--------+----------+-------------+
+| ProductId | Price  | Quantity | TotalAmount |
++-----------+--------+----------+-------------+
+|         1 |  50.00 |        3 |      150.00 |
+|         2 | 100.24 |        6 |      601.44 |
++-----------+--------+----------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> update products set price=500 where ProductId = 1;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from products;
++-----------+--------+----------+-------------+
+| ProductId | Price  | Quantity | TotalAmount |
++-----------+--------+----------+-------------+
+|         1 | 500.00 |        3 |     1500.00 |
+|         2 | 100.24 |        6 |      601.44 |
++-----------+--------+----------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> NOTEE
