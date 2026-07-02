@@ -1,0 +1,91 @@
+mysql> use pfs3;
+Database changed
+mysql> create table students (
+    -> Name varchar(100),
+    -> Student_id int,
+    -> Mobile varchar(12)
+    -> );
+Query OK, 0 rows affected (0.71 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_pfs3  |
++-----------------+
+| backupemployees |
+| company_staff   |
+| employees       |
+| products        |
+| students        |
++-----------------+
+5 rows in set (0.08 sec)
+
+mysql> insert into students values ('Kishore',111,'7032562010), ('Arjun',112,'7894561232');
+    '> insert into students values ('Kishore',111,'7032562010'), ('Arjun',112,'7894561232');
+    '> /c
+    '> Terminal close -- exit!
+mysql> use pfs3;
+Database changed
+mysql> insert into students ('Badri',111,'6307936122'),('Arjun',112,'70
+    '> Terminal close -- exit!
+mysql> use pfs;
+ERROR 1049 (42000): Unknown database 'pfs'
+mysql> use pfs3;
+Database changed
+mysql> insert into students values ('Badri',111,'7032562010'),('arjun',112,'6309679332');
+Query OK, 2 rows affected (0.37 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++-------+------------+------------+
+| Name  | Student_id | Mobile     |
++-------+------------+------------+
+| Badri |        111 | 7032562010 |
+| arjun |        112 | 6309679332 |
++-------+------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> create user arjun identified by 'arjun123';
+Query OK, 0 rows affected (0.36 sec)
+
+mysql> create user sarkar identified by 'arjunsarkar';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> grant select,update on students to arjun;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> grant insert,update,delete on students to sarkar;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from students;
++-------+------------+------------+
+| Name  | Student_id | Mobile     |
++-------+------------+------------+
+| Badri |        111 | 7032562010 |
+| arjun |        112 | 6309679332 |
+| Mahe  |        113 | 4563210789 |
++-------+------------+------------+
+3 rows in set (0.00 sec)
+
+Transaction
+---------------------
+
+Transaction is a sequence of one or more sql operations executed as a single logical unit of work. It ensures that either all operations are completely successfully or none of them are applied to the database
+
+interview
+--------------------------
+
+a transaction is a logical unit of work consisting one or more sql statements that follows ACID properties to maintain data integrity and consistency
+
+ACID properties
+---------------------
+
+A- Atomicity - either all operations happen or none happen
+C - Consistency - Db remains in a valid state before or after the transaction
+I - Isolation - concurrent transaction do not interface with each other
+D - Durability - submitted changes are permanent even if the system crashes.
+
+Commands
+--------------
+commit, rollback, savePoint
+
+
