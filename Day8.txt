@@ -1,0 +1,807 @@
+operator
+----------------
+> It is a symbol it performs a specific task
+
+syntax
+----------------
+
+operand          operator         operand 
+
+a                  +                 b
+
+mysql> use pfs3;
+Database changed
+mysql> create table products(
+    -> id int,
+    -> name varchar(100),
+    -> price int,
+    -> qty int );
+ERROR 1050 (42S01): Table 'products' already exists
+mysql> show tables;
++-----------------+
+| Tables_in_pfs3  |
++-----------------+
+| backupemployees |
+| company_staff   |
+| employees       |
+| library         |
+| products        |
+| school          |
+| students        |
++-----------------+
+7 rows in set (0.16 sec)
+
+mysql> create table product(
+    -> id int,
+    -> name varchar(100),
+    -> price int,
+    -> qty int
+    -> );
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> insert into product values(1,'pen',10,70),
+    -> (2,'Pencil',5,80),
+    -> (3,'Eraser',3,300),
+    -> (4,'Marker',10,500);
+Query OK, 4 rows affected (0.05 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from product;
++------+--------+-------+------+
+| id   | name   | price | qty  |
++------+--------+-------+------+
+|    1 | pen    |    10 |   70 |
+|    2 | Pencil |     5 |   80 |
+|    3 | Eraser |     3 |  300 |
+|    4 | Marker |    10 |  500 |
++------+--------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> insert into products values(5,'Compass',30,400),(6,'Calculator',70,150),(7,'Scale',12,400);
+ERROR 3105 (HY000): The value specified for generated column 'TotalAmount' in table 'products' is not allowed.
+mysql> select name,price,price+(price*0.12) as price_with_tax from product;
++--------+-------+----------------+
+| name   | price | price_with_tax |
++--------+-------+----------------+
+| pen    |    10 |          11.20 |
+| Pencil |     5 |           5.60 |
+| Eraser |     3 |           3.36 |
+| Marker |    10 |          11.20 |
++--------+-------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> select name,price,price-5 as discount_price from products;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> SELECT name, price, price-5 AS discount_price
+    -> FROM product;
++--------+-------+----------------+
+| name   | price | discount_price |
++--------+-------+----------------+
+| pen    |    10 |              5 |
+| Pencil |     5 |              0 |
+| Eraser |     3 |             -2 |
+| Marker |    10 |              5 |
++--------+-------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select name, price,qty,price*qty as total_inventory_value from product;
++--------+-------+------+-----------------------+
+| name   | price | qty  | total_inventory_value |
++--------+-------+------+-----------------------+
+| pen    |    10 |   70 |                   700 |
+| Pencil |     5 |   80 |                   400 |
+| Eraser |     3 |  300 |                   900 |
+| Marker |    10 |  500 |                  5000 |
++--------+-------+------+-----------------------+
+4 rows in set (0.00 sec)
+
+mysql> select name, price, price*4,as price_per_4_units from product;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as price_per_4_units from product' at line 1
+mysql> SELECT name, price, price*4 AS price_per_4_units
+    -> FROM product;
++--------+-------+-------------------+
+| name   | price | price_per_4_units |
++--------+-------+-------------------+
+| pen    |    10 |                40 |
+| Pencil |     5 |                20 |
+| Eraser |     3 |                12 |
+| Marker |    10 |                40 |
++--------+-------+-------------------+
+4 rows in set (0.06 sec)
+
+mysql> select * from product where qty%50 != 0;
++------+--------+-------+------+
+| id   | name   | price | qty  |
++------+--------+-------+------+
+|    1 | pen    |    10 |   70 |
+|    2 | Pencil |     5 |   80 |
++------+--------+-------+------+
+2 rows in set (0.01 sec)
+
+mysql> UPDATE product
+    -> SET qty = qty + 2;
+Query OK, 4 rows affected (0.34 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from product;
++------+--------+-------+------+
+| id   | name   | price | qty  |
++------+--------+-------+------+
+|    1 | pen    |    10 |   72 |
+|    2 | Pencil |     5 |   82 |
+|    3 | Eraser |     3 |  302 |
+|    4 | Marker |    10 |  502 |
++------+--------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> UPDATE product
+    -> SET price = price - 5;
+Query OK, 4 rows affected (0.06 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from product;
++------+--------+-------+------+
+| id   | name   | price | qty  |
++------+--------+-------+------+
+|    1 | pen    |     5 |   72 |
+|    2 | Pencil |     0 |   82 |
+|    3 | Eraser |    -2 |  302 |
+|    4 | Marker |     5 |  502 |
++------+--------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> UPDATE product
+    -> SET qty = qty * 2
+    -> WHERE name = 'Eraser';
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from product;
++------+--------+-------+------+
+| id   | name   | price | qty  |
++------+--------+-------+------+
+|    1 | pen    |     5 |   72 |
+|    2 | Pencil |     0 |   82 |
+|    3 | Eraser |    -2 |  604 |
+|    4 | Marker |     5 |  502 |
++------+--------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> UPDATE product
+    -> SET qty = qty / 2
+    -> WHERE name = 'Marker';
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from product;
++------+--------+-------+------+
+| id   | name   | price | qty  |
++------+--------+-------+------+
+|    1 | pen    |     5 |   72 |
+|    2 | Pencil |     0 |   82 |
+|    3 | Eraser |    -2 |  604 |
+|    4 | Marker |     5 |  251 |
++------+--------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> DELETE FROM product
+    -> WHERE qty < 100;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> select * from product;
++------+--------+-------+------+
+| id   | name   | price | qty  |
++------+--------+-------+------+
+|    3 | Eraser |    -2 |  604 |
+|    4 | Marker |     5 |  251 |
++------+--------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE StudentScores (
+    -> 
+    -> 
+    -> 1027	+
+    ->  id INT,
+    -> 1028	+
+    ->  name VARCHAR(100),
+    -> 1029	+
+    ->  subject VARCHAR(50),
+    -> 1030	+
+    ->  marks INT
+    -> 1031	+
+    ->  );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1027	+
+ id INT,
+1028	+
+ name VARCHAR(100),
+1029	+
+ subject VARCHAR(50),
+1030	+
+ ' at line 4
+mysql> CREATE TABLE StudentScores (
+    ->  id INT,
+    ->  name VARCHAR(100),
+    ->  subject VARCHAR(50),
+    ->  marks INT
+    ->  );
+Query OK, 0 rows affected (1.76 sec)
+
+mysql> 
+mysql> -- STEP 2: Insert Records
+mysql> INSERT INTO StudentScores VALUES
+    ->  (1, 'Alice', 'Math', 95),
+    ->  (2, 'Bob', 'Math', 76),
+    ->  (3, 'Charlie', 'Math', 59),
+    ->  (4, 'Diana', 'Math', 88),
+    ->  (5, 'Eve', 'Math', 40),
+    ->  (6, 'Frank', 'Math', 95),
+    ->  (7, 'Grace', 'Science', 67),
+    ->  (8, 'Henry', 'Science', 82),
+    ->  (9, 'Ivy', 'English', 91),
+    ->  (10, 'Jack', 'English', 55),
+    ->  (11, 'Kevin', 'Math', 73),
+    ->  (12, 'Lily', 'Science', 48),
+    ->  (13, 'Mia', 'English', 100),
+    ->  (14, 'Noah', 'Math', 64),
+    ->  (15, 'Olivia', 'Science', 79);
+Query OK, 15 rows affected (0.09 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql> select * from StudentScores;
++------+---------+---------+-------+
+| id   | name    | subject | marks |
++------+---------+---------+-------+
+|    1 | Alice   | Math    |    95 |
+|    2 | Bob     | Math    |    76 |
+|    3 | Charlie | Math    |    59 |
+|    4 | Diana   | Math    |    88 |
+|    5 | Eve     | Math    |    40 |
+|    6 | Frank   | Math    |    95 |
+|    7 | Grace   | Science |    67 |
+|    8 | Henry   | Science |    82 |
+|    9 | Ivy     | English |    91 |
+|   10 | Jack    | English |    55 |
+|   11 | Kevin   | Math    |    73 |
+|   12 | Lily    | Science |    48 |
+|   13 | Mia     | English |   100 |
+|   14 | Noah    | Math    |    64 |
+|   15 | Olivia  | Science |    79 |
++------+---------+---------+-------+
+15 rows in set (0.01 sec)
+
+mysql> SELECT *
+    -> FROM StudentScores
+    -> WHERE marks > 80;
++------+-------+---------+-------+
+| id   | name  | subject | marks |
++------+-------+---------+-------+
+|    1 | Alice | Math    |    95 |
+|    4 | Diana | Math    |    88 |
+|    6 | Frank | Math    |    95 |
+|    8 | Henry | Science |    82 |
+|    9 | Ivy   | English |    91 |
+|   13 | Mia   | English |   100 |
++------+-------+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT *
+    -> FROM StudentScores
+    -> WHERE marks >= 60;
++------+--------+---------+-------+
+| id   | name   | subject | marks |
++------+--------+---------+-------+
+|    1 | Alice  | Math    |    95 |
+|    2 | Bob    | Math    |    76 |
+|    4 | Diana  | Math    |    88 |
+|    6 | Frank  | Math    |    95 |
+|    7 | Grace  | Science |    67 |
+|    8 | Henry  | Science |    82 |
+|    9 | Ivy    | English |    91 |
+|   11 | Kevin  | Math    |    73 |
+|   13 | Mia    | English |   100 |
+|   14 | Noah   | Math    |    64 |
+|   15 | Olivia | Science |    79 |
++------+--------+---------+-------+
+11 rows in set (0.03 sec)
+
+mysql> select * from StudentScores where marks < 50;
++------+------+---------+-------+
+| id   | name | subject | marks |
++------+------+---------+-------+
+|    5 | Eve  | Math    |    40 |
+|   12 | Lily | Science |    48 |
++------+------+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> select * from StudnetScores where marks = 95;
+ERROR 1146 (42S02): Table 'pfs3.studnetscores' doesn't exist
+mysql> SELECT name
+    -> FROM StudentScores
+    -> WHERE marks = 95;
++-------+
+| name  |
++-------+
+| Alice |
+| Frank |
++-------+
+2 rows in set (0.01 sec)
+
+mysql> select * from StudentScores where marks = 95;
++------+-------+---------+-------+
+| id   | name  | subject | marks |
++------+-------+---------+-------+
+|    1 | Alice | Math    |    95 |
+|    6 | Frank | Math    |    95 |
++------+-------+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> update StudentScores set marks = marks + 10 where marks < 50;
+Query OK, 2 rows affected (0.08 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from StudentScores;
++------+---------+---------+-------+
+| id   | name    | subject | marks |
++------+---------+---------+-------+
+|    1 | Alice   | Math    |    95 |
+|    2 | Bob     | Math    |    76 |
+|    3 | Charlie | Math    |    59 |
+|    4 | Diana   | Math    |    88 |
+|    5 | Eve     | Math    |    50 |
+|    6 | Frank   | Math    |    95 |
+|    7 | Grace   | Science |    67 |
+|    8 | Henry   | Science |    82 |
+|    9 | Ivy     | English |    91 |
+|   10 | Jack    | English |    55 |
+|   11 | Kevin   | Math    |    73 |
+|   12 | Lily    | Science |    58 |
+|   13 | Mia     | English |   100 |
+|   14 | Noah    | Math    |    64 |
+|   15 | Olivia  | Science |    79 |
++------+---------+---------+-------+
+15 rows in set (0.00 sec)
+
+mysql> update StudentScores set marks = marks + 5 where between 55 and 60;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'between 55 and 60' at line 1
+mysql> update StudentScores set marks = marks + 5 where marks between 55 and 60;
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from StudentScores;
++------+---------+---------+-------+
+| id   | name    | subject | marks |
++------+---------+---------+-------+
+|    1 | Alice   | Math    |    95 |
+|    2 | Bob     | Math    |    76 |
+|    3 | Charlie | Math    |    64 |
+|    4 | Diana   | Math    |    88 |
+|    5 | Eve     | Math    |    50 |
+|    6 | Frank   | Math    |    95 |
+|    7 | Grace   | Science |    67 |
+|    8 | Henry   | Science |    82 |
+|    9 | Ivy     | English |    91 |
+|   10 | Jack    | English |    60 |
+|   11 | Kevin   | Math    |    73 |
+|   12 | Lily    | Science |    63 |
+|   13 | Mia     | English |   100 |
+|   14 | Noah    | Math    |    64 |
+|   15 | Olivia  | Science |    79 |
++------+---------+---------+-------+
+15 rows in set (0.00 sec)
+
+mysql> update StudentScores set marks = marks + 2 where marks = 90;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from StudentScores;
++------+---------+---------+-------+
+| id   | name    | subject | marks |
++------+---------+---------+-------+
+|    1 | Alice   | Math    |    95 |
+|    2 | Bob     | Math    |    76 |
+|    3 | Charlie | Math    |    64 |
+|    4 | Diana   | Math    |    88 |
+|    5 | Eve     | Math    |    50 |
+|    6 | Frank   | Math    |    95 |
+|    7 | Grace   | Science |    67 |
+|    8 | Henry   | Science |    82 |
+|    9 | Ivy     | English |    91 |
+|   10 | Jack    | English |    60 |
+|   11 | Kevin   | Math    |    73 |
+|   12 | Lily    | Science |    63 |
+|   13 | Mia     | English |   100 |
+|   14 | Noah    | Math    |    64 |
+|   15 | Olivia  | Science |    79 |
++------+---------+---------+-------+
+15 rows in set (0.00 sec)
+
+mysql> update StudentScores set marks = marks + 2 where marks > 90;
+Query OK, 4 rows affected (0.05 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from StudentScores;
++------+---------+---------+-------+
+| id   | name    | subject | marks |
++------+---------+---------+-------+
+|    1 | Alice   | Math    |    97 |
+|    2 | Bob     | Math    |    76 |
+|    3 | Charlie | Math    |    64 |
+|    4 | Diana   | Math    |    88 |
+|    5 | Eve     | Math    |    50 |
+|    6 | Frank   | Math    |    97 |
+|    7 | Grace   | Science |    67 |
+|    8 | Henry   | Science |    82 |
+|    9 | Ivy     | English |    93 |
+|   10 | Jack    | English |    60 |
+|   11 | Kevin   | Math    |    73 |
+|   12 | Lily    | Science |    63 |
+|   13 | Mia     | English |   102 |
+|   14 | Noah    | Math    |    64 |
+|   15 | Olivia  | Science |    79 |
++------+---------+---------+-------+
+15 rows in set (0.00 sec)
+
+mysql> delete from StudentScores where marks < 50;
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> select * from StudentScores;
++------+---------+---------+-------+
+| id   | name    | subject | marks |
++------+---------+---------+-------+
+|    1 | Alice   | Math    |    97 |
+|    2 | Bob     | Math    |    76 |
+|    3 | Charlie | Math    |    64 |
+|    4 | Diana   | Math    |    88 |
+|    5 | Eve     | Math    |    50 |
+|    6 | Frank   | Math    |    97 |
+|    7 | Grace   | Science |    67 |
+|    8 | Henry   | Science |    82 |
+|    9 | Ivy     | English |    93 |
+|   10 | Jack    | English |    60 |
+|   11 | Kevin   | Math    |    73 |
+|   12 | Lily    | Science |    63 |
+|   13 | Mia     | English |   102 |
+|   14 | Noah    | Math    |    64 |
+|   15 | Olivia  | Science |    79 |
++------+---------+---------+-------+
+15 rows in set (0.00 sec)
+
+mysql> delete from StudentScores where marks <= 60;
+Query OK, 2 rows affected (0.07 sec)
+
+mysql> select * from StudentScores;
++------+---------+---------+-------+
+| id   | name    | subject | marks |
++------+---------+---------+-------+
+|    1 | Alice   | Math    |    97 |
+|    2 | Bob     | Math    |    76 |
+|    3 | Charlie | Math    |    64 |
+|    4 | Diana   | Math    |    88 |
+|    6 | Frank   | Math    |    97 |
+|    7 | Grace   | Science |    67 |
+|    8 | Henry   | Science |    82 |
+|    9 | Ivy     | English |    93 |
+|   11 | Kevin   | Math    |    73 |
+|   12 | Lily    | Science |    63 |
+|   13 | Mia     | English |   102 |
+|   14 | Noah    | Math    |    64 |
+|   15 | Olivia  | Science |    79 |
++------+---------+---------+-------+
+13 rows in set (0.04 sec)
+
+mysql> delete from StudentScores where marks > 90;
+Query OK, 4 rows affected (0.04 sec)
+
+mysql> select * from StudentScores;
++------+---------+---------+-------+
+| id   | name    | subject | marks |
++------+---------+---------+-------+
+|    2 | Bob     | Math    |    76 |
+|    3 | Charlie | Math    |    64 |
+|    4 | Diana   | Math    |    88 |
+|    7 | Grace   | Science |    67 |
+|    8 | Henry   | Science |    82 |
+|   11 | Kevin   | Math    |    73 |
+|   12 | Lily    | Science |    63 |
+|   14 | Noah    | Math    |    64 |
+|   15 | Olivia  | Science |    79 |
++------+---------+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> delete from StudentScores where marks >= 80;
+Query OK, 2 rows affected (0.03 sec)
+
+mysql> select * from StudentScores;
++------+---------+---------+-------+
+| id   | name    | subject | marks |
++------+---------+---------+-------+
+|    2 | Bob     | Math    |    76 |
+|    3 | Charlie | Math    |    64 |
+|    7 | Grace   | Science |    67 |
+|   11 | Kevin   | Math    |    73 |
+|   12 | Lily    | Science |    63 |
+|   14 | Noah    | Math    |    64 |
+|   15 | Olivia  | Science |    79 |
++------+---------+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select * from StudentScores where marks = 76;
++------+------+---------+-------+
+| id   | name | subject | marks |
++------+------+---------+-------+
+|    2 | Bob  | Math    |    76 |
++------+------+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> delete from StudentScores where marks != 95;
+Query OK, 7 rows affected (0.05 sec)
+
+mysql> select * from StudentScores;
+Empty set (0.00 sec)
+
+mysql> drop employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employees' at line 1
+mysql> drop table employees;
+Query OK, 0 rows affected (1.38 sec)
+
+mysql> CREATE TABLE Employees (
+    ->  id INT,
+    ->  name VARCHAR(100),
+    ->  department VARCHAR(100),
+    ->  salary INT,
+    ->  isactive BOOLEAN
+    ->  );
+Query OK, 0 rows affected (0.48 sec)
+
+mysql> 
+mysql>  -- STEP 2: Insert Records
+mysql> INSERT INTO Employees VALUES
+    ->  (1, 'Rahul Sharma', 'IT', 50000, TRUE),
+    ->  (2, 'Priya Reddy', 'HR', 30000, TRUE),
+    ->  (3, 'Amit Kumar', 'Finance', 45000, FALSE),
+    ->  (4, 'Sneha Patel', 'IT', 35000, TRUE),
+    ->  (5, 'Vikram Singh', 'Finance', 28000, TRUE),
+    ->  (6, 'Anjali Mehta', 'HR', 32000, FALSE),
+    ->  (7, 'Kiran Rao', 'IT', 60000, TRUE),
+    ->  (8, 'Pooja Verma', 'Marketing', 27000, TRUE),
+    ->  (9, 'Ramesh Naidu', 'Sales', 38000, TRUE),
+    ->  (10, 'Deepika Joshi', 'Finance', 52000, TRUE),
+    ->  (11, 'Suresh Babu', 'Marketing', 29000, FALSE),
+    ->  (12, 'Neha Kapoor', 'HR', 41000, TRUE),
+    ->  (13, 'Arjun Reddy', 'IT', 55000, FALSE),
+    ->  (14, 'Lakshmi Devi', 'Sales', 33000, TRUE),
+    ->  (15, 'Nikhil Jain', 'IT', 47000, TRUE);
+Query OK, 15 rows affected (0.18 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql> select * from employees;
++------+---------------+------------+--------+----------+
+| id   | name          | department | salary | isactive |
++------+---------------+------------+--------+----------+
+|    1 | Rahul Sharma  | IT         |  50000 |        1 |
+|    2 | Priya Reddy   | HR         |  30000 |        1 |
+|    3 | Amit Kumar    | Finance    |  45000 |        0 |
+|    4 | Sneha Patel   | IT         |  35000 |        1 |
+|    5 | Vikram Singh  | Finance    |  28000 |        1 |
+|    6 | Anjali Mehta  | HR         |  32000 |        0 |
+|    7 | Kiran Rao     | IT         |  60000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  27000 |        1 |
+|    9 | Ramesh Naidu  | Sales      |  38000 |        1 |
+|   10 | Deepika Joshi | Finance    |  52000 |        1 |
+|   11 | Suresh Babu   | Marketing  |  29000 |        0 |
+|   12 | Neha Kapoor   | HR         |  41000 |        1 |
+|   13 | Arjun Reddy   | IT         |  55000 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  33000 |        1 |
+|   15 | Nikhil Jain   | IT         |  47000 |        1 |
++------+---------------+------------+--------+----------+
+15 rows in set (0.00 sec)
+
+mysql> select * from employees where department = "it" and salary > 40000;
++------+--------------+------------+--------+----------+
+| id   | name         | department | salary | isactive |
++------+--------------+------------+--------+----------+
+|    1 | Rahul Sharma | IT         |  50000 |        1 |
+|    7 | Kiran Rao    | IT         |  60000 |        1 |
+|   13 | Arjun Reddy  | IT         |  55000 |        0 |
+|   15 | Nikhil Jain  | IT         |  47000 |        1 |
++------+--------------+------------+--------+----------+
+4 rows in set (0.04 sec)
+
+mysql> select * from employees where department = 'HR' OR salary < 35000;
++------+--------------+------------+--------+----------+
+| id   | name         | department | salary | isactive |
++------+--------------+------------+--------+----------+
+|    2 | Priya Reddy  | HR         |  30000 |        1 |
+|    5 | Vikram Singh | Finance    |  28000 |        1 |
+|    6 | Anjali Mehta | HR         |  32000 |        0 |
+|    8 | Pooja Verma  | Marketing  |  27000 |        1 |
+|   11 | Suresh Babu  | Marketing  |  29000 |        0 |
+|   12 | Neha Kapoor  | HR         |  41000 |        1 |
+|   14 | Lakshmi Devi | Sales      |  33000 |        1 |
++------+--------------+------------+--------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employees where department != 'HR';
++------+---------------+------------+--------+----------+
+| id   | name          | department | salary | isactive |
++------+---------------+------------+--------+----------+
+|    1 | Rahul Sharma  | IT         |  50000 |        1 |
+|    3 | Amit Kumar    | Finance    |  45000 |        0 |
+|    4 | Sneha Patel   | IT         |  35000 |        1 |
+|    5 | Vikram Singh  | Finance    |  28000 |        1 |
+|    7 | Kiran Rao     | IT         |  60000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  27000 |        1 |
+|    9 | Ramesh Naidu  | Sales      |  38000 |        1 |
+|   10 | Deepika Joshi | Finance    |  52000 |        1 |
+|   11 | Suresh Babu   | Marketing  |  29000 |        0 |
+|   13 | Arjun Reddy   | IT         |  55000 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  33000 |        1 |
+|   15 | Nikhil Jain   | IT         |  47000 |        1 |
++------+---------------+------------+--------+----------+
+12 rows in set (0.00 sec)
+
+mysql> select * from employees where department = 'finance' or (salary > 30000 and isactive = true);
++------+---------------+------------+--------+----------+
+| id   | name          | department | salary | isactive |
++------+---------------+------------+--------+----------+
+|    1 | Rahul Sharma  | IT         |  50000 |        1 |
+|    3 | Amit Kumar    | Finance    |  45000 |        0 |
+|    4 | Sneha Patel   | IT         |  35000 |        1 |
+|    5 | Vikram Singh  | Finance    |  28000 |        1 |
+|    7 | Kiran Rao     | IT         |  60000 |        1 |
+|    9 | Ramesh Naidu  | Sales      |  38000 |        1 |
+|   10 | Deepika Joshi | Finance    |  52000 |        1 |
+|   12 | Neha Kapoor   | HR         |  41000 |        1 |
+|   14 | Lakshmi Devi  | Sales      |  33000 |        1 |
+|   15 | Nikhil Jain   | IT         |  47000 |        1 |
++------+---------------+------------+--------+----------+
+10 rows in set (0.01 sec)
+
+mysql> select * from employees where department = 'finance' or salary > 30000 and isactive = true;
++------+---------------+------------+--------+----------+
+| id   | name          | department | salary | isactive |
++------+---------------+------------+--------+----------+
+|    1 | Rahul Sharma  | IT         |  50000 |        1 |
+|    3 | Amit Kumar    | Finance    |  45000 |        0 |
+|    4 | Sneha Patel   | IT         |  35000 |        1 |
+|    5 | Vikram Singh  | Finance    |  28000 |        1 |
+|    7 | Kiran Rao     | IT         |  60000 |        1 |
+|    9 | Ramesh Naidu  | Sales      |  38000 |        1 |
+|   10 | Deepika Joshi | Finance    |  52000 |        1 |
+|   12 | Neha Kapoor   | HR         |  41000 |        1 |
+|   14 | Lakshmi Devi  | Sales      |  33000 |        1 |
+|   15 | Nikhil Jain   | IT         |  47000 |        1 |
++------+---------------+------------+--------+----------+
+10 rows in set (0.00 sec)
+
+mysql> update employees set salary = salary + 2000
+    -> where department = 'IT' and isactive = 1
+    -> and salary < 6000;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from employees;
++------+---------------+------------+--------+----------+
+| id   | name          | department | salary | isactive |
++------+---------------+------------+--------+----------+
+|    1 | Rahul Sharma  | IT         |  50000 |        1 |
+|    2 | Priya Reddy   | HR         |  30000 |        1 |
+|    3 | Amit Kumar    | Finance    |  45000 |        0 |
+|    4 | Sneha Patel   | IT         |  35000 |        1 |
+|    5 | Vikram Singh  | Finance    |  28000 |        1 |
+|    6 | Anjali Mehta  | HR         |  32000 |        0 |
+|    7 | Kiran Rao     | IT         |  60000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  27000 |        1 |
+|    9 | Ramesh Naidu  | Sales      |  38000 |        1 |
+|   10 | Deepika Joshi | Finance    |  52000 |        1 |
+|   11 | Suresh Babu   | Marketing  |  29000 |        0 |
+|   12 | Neha Kapoor   | HR         |  41000 |        1 |
+|   13 | Arjun Reddy   | IT         |  55000 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  33000 |        1 |
+|   15 | Nikhil Jain   | IT         |  47000 |        1 |
++------+---------------+------------+--------+----------+
+15 rows in set (0.00 sec)
+
+mysql> update employees set salary = salary + 2000
+    -> where department = 'IT' and isactive = 1
+    -> and salary < 60000;
+Query OK, 3 rows affected (0.08 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from employees;
++------+---------------+------------+--------+----------+
+| id   | name          | department | salary | isactive |
++------+---------------+------------+--------+----------+
+|    1 | Rahul Sharma  | IT         |  52000 |        1 |
+|    2 | Priya Reddy   | HR         |  30000 |        1 |
+|    3 | Amit Kumar    | Finance    |  45000 |        0 |
+|    4 | Sneha Patel   | IT         |  37000 |        1 |
+|    5 | Vikram Singh  | Finance    |  28000 |        1 |
+|    6 | Anjali Mehta  | HR         |  32000 |        0 |
+|    7 | Kiran Rao     | IT         |  60000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  27000 |        1 |
+|    9 | Ramesh Naidu  | Sales      |  38000 |        1 |
+|   10 | Deepika Joshi | Finance    |  52000 |        1 |
+|   11 | Suresh Babu   | Marketing  |  29000 |        0 |
+|   12 | Neha Kapoor   | HR         |  41000 |        1 |
+|   13 | Arjun Reddy   | IT         |  55000 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  33000 |        1 |
+|   15 | Nikhil Jain   | IT         |  49000 |        1 |
++------+---------------+------------+--------+----------+
+15 rows in set (0.00 sec)
+
+mysql> update employees set salary =salary-(salary*0.10)
+    -> where department = 'finance' or isactive = false;
+Query OK, 6 rows affected (0.09 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> select * from employees;
++------+---------------+------------+--------+----------+
+| id   | name          | department | salary | isactive |
++------+---------------+------------+--------+----------+
+|    1 | Rahul Sharma  | IT         |  52000 |        1 |
+|    2 | Priya Reddy   | HR         |  30000 |        1 |
+|    3 | Amit Kumar    | Finance    |  40500 |        0 |
+|    4 | Sneha Patel   | IT         |  37000 |        1 |
+|    5 | Vikram Singh  | Finance    |  25200 |        1 |
+|    6 | Anjali Mehta  | HR         |  28800 |        0 |
+|    7 | Kiran Rao     | IT         |  60000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  27000 |        1 |
+|    9 | Ramesh Naidu  | Sales      |  38000 |        1 |
+|   10 | Deepika Joshi | Finance    |  46800 |        1 |
+|   11 | Suresh Babu   | Marketing  |  26100 |        0 |
+|   12 | Neha Kapoor   | HR         |  41000 |        1 |
+|   13 | Arjun Reddy   | IT         |  49500 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  33000 |        1 |
+|   15 | Nikhil Jain   | IT         |  49000 |        1 |
++------+---------------+------------+--------+----------+
+15 rows in set (0.00 sec)
+
+mysql> update employees set isactive = false where department != 'IT';
+Query OK, 7 rows affected (0.05 sec)
+Rows matched: 10  Changed: 7  Warnings: 0
+
+mysql> select * from employees;
++------+---------------+------------+--------+----------+
+| id   | name          | department | salary | isactive |
++------+---------------+------------+--------+----------+
+|    1 | Rahul Sharma  | IT         |  52000 |        1 |
+|    2 | Priya Reddy   | HR         |  30000 |        0 |
+|    3 | Amit Kumar    | Finance    |  40500 |        0 |
+|    4 | Sneha Patel   | IT         |  37000 |        1 |
+|    5 | Vikram Singh  | Finance    |  25200 |        0 |
+|    6 | Anjali Mehta  | HR         |  28800 |        0 |
+|    7 | Kiran Rao     | IT         |  60000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  27000 |        0 |
+|    9 | Ramesh Naidu  | Sales      |  38000 |        0 |
+|   10 | Deepika Joshi | Finance    |  46800 |        0 |
+|   11 | Suresh Babu   | Marketing  |  26100 |        0 |
+|   12 | Neha Kapoor   | HR         |  41000 |        0 |
+|   13 | Arjun Reddy   | IT         |  49500 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  33000 |        0 |
+|   15 | Nikhil Jain   | IT         |  49000 |        1 |
++------+---------------+------------+--------+----------+
+15 rows in set (0.00 sec)
+
+mysql> delete from employees where department = 'hr' and isactive = 0;
+Query OK, 3 rows affected (0.04 sec)
+
+mysql> delete from employees where department = 'finance' or salary < 35000;
+Query OK, 6 rows affected (0.04 sec)
+
+mysql> delete from employees where department != 'IT';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employees;
++------+--------------+------------+--------+----------+
+| id   | name         | department | salary | isactive |
++------+--------------+------------+--------+----------+
+|    1 | Rahul Sharma | IT         |  52000 |        1 |
+|    4 | Sneha Patel  | IT         |  37000 |        1 |
+|    7 | Kiran Rao    | IT         |  60000 |        1 |
+|   13 | Arjun Reddy  | IT         |  49500 |        0 |
+|   15 | Nikhil Jain  | IT         |  49000 |        1 |
++------+--------------+------------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> NOTEE
