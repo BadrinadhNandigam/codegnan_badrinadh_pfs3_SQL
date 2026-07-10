@@ -1,0 +1,707 @@
+Date functions
+----------------------
+
+
+Logging to file 'D:\MySQL/Day11.txt'
+mysql> use pfs3;
+Database changed
+mysql> -- curdate()
+mysql> select curdate() as current_date;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'current_date' at line 1
+mysql> SELECT CURDATE() AS CUR_DATE;
++------------+
+| CUR_DATE   |
++------------+
+| 2026-07-06 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> CURTIME()
+    -> ^C
+mysql> -- CURTIME()
+mysql> SELECT CURTIME() AS CUR_TIME;
++----------+
+| CUR_TIME |
++----------+
+| 09:17:56 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> -- NOW() RETURNS THE CURRENT DATE AND TIME
+mysql> SELECT NOW() AS CURRENT_DATE_TIME;
++---------------------+
+| CURRENT_DATE_TIME   |
++---------------------+
+| 2026-07-06 09:18:39 |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> -- DATE() : EXTRACT DATE PART
+mysql> SELECT DATE('2024-11-28 14:32:45') AS EXTRACTED_DATE;
++----------------+
+| EXTRACTED_DATE |
++----------------+
+| 2024-11-28     |
++----------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT TIME(NOW()) AS EXTRACTED_TIME;
++----------------+
+| EXTRACTED_TIME |
++----------------+
+| 09:20:38       |
++----------------+
+1 row in set (0.01 sec)
+
+mysql> -- YEAR()
+mysql> SELECT MONTH(NOW()) AS MONTH_PART;
++------------+
+| MONTH_PART |
++------------+
+|          7 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT YEAR(NOW()) AS YEAR_PART;
++-----------+
+| YEAR_PART |
++-----------+
+|      2026 |
++-----------+
+1 row in set (0.01 sec)
+
+mysql> -- DAY() OR DAYOFMONTH()
+mysql> SELECT DAY(CURDATE()) AS DAY_PART;
++----------+
+| DAY_PART |
++----------+
+|        6 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> use pfs3;
+Database changed
+mysql> -- DAYOFWEEK() RETURNS THE DAY OF WEEK(1-7)
+mysql> SELECT DAYOFWEEK(NOW()) AS DAY_OF_WEEK;
++-------------+
+| DAY_OF_WEEK |
++-------------+
+|           2 |
++-------------+
+1 row in set (0.33 sec)
+
+mysql> SELECT DAYOFMONTH(NOW()) AS DAY_OF_MONTH;
++--------------+
+| DAY_OF_MONTH |
++--------------+
+|            6 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> -- DATE_ADD()
+mysql> SELECT DATE_ADD(NOW(),INTERVAL 100 DAYS) AS NEW_DATE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DAYS) AS NEW_DATE' at line 1
+mysql> SELECT DATE_ADD(NOW(),INTERVAL 20 DAY) AS NEW_DATE;
++---------------------+
+| NEW_DATE            |
++---------------------+
+| 2026-07-26 09:30:09 |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT DATE_SUB(NOW(),INTERVAL 30 DAY)AS NEW_DATE;
++---------------------+
+| NEW_DATE            |
++---------------------+
+| 2026-06-06 09:30:40 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATEDIFF(NOW(),'2000-05-23') AS DAYS_DIFF;
++-----------+
+| DAYS_DIFF |
++-----------+
+|      9540 |
++-----------+
+1 row in set (0.35 sec)
+
+mysql> SELECT LAST_DAY(NOW()) AS LAST_DAY_OF_MONTH;
++-------------------+
+| LAST_DAY_OF_MONTH |
++-------------------+
+| 2026-07-31        |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT MAKEDATE(2026,60) AS RESULT_DATE;
++-------------+
+| RESULT_DATE |
++-------------+
+| 2026-03-01  |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT MAKETIME(18,24,45) AS RESULT_TIME;
++-------------+
+| RESULT_TIME |
++-------------+
+| 18:24:45    |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME(NOW()) AS DAY_NAME;
++----------+
+| DAY_NAME |
++----------+
+| Monday   |
++----------+
+1 row in set (0.04 sec)
+
+mysql> -- SECONDS TO TIME
+mysql> SELECT SEC_TO_TIME(3661) AS TIME_VALUE;
++------------+
+| TIME_VALUE |
++------------+
+| 01:01:01   |
++------------+
+1 row in set (0.01 sec)
+
+mysql> --TIME TO SECONDS
+    -> SELECT TIME_TO_SEC('01:01:01') AS TOTAL_SECONDS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--TIME TO SECONDS
+SELECT TIME_TO_SEC('01:01:01') AS TOTAL_SECONDS' at line 1
+mysql> SELECT TIME_TO_SEC('01:01:01') AS TOTAL_SECONDS;
++---------------+
+| TOTAL_SECONDS |
++---------------+
+|          3661 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SYSDATE() AS SYSTEM_DATE;
++---------------------+
+| SYSTEM_DATE         |
++---------------------+
+| 2026-07-06 09:38:03 |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> CREATE TABLE employee_attendance
+    -> (
+    -> 	emp_id INT PRIMARY KEY AUTO_INCREMENT,
+    -> 	emp_name VARCHAR(100),
+    -> 	department VARCHAR(50),
+    -> 	joining_date DATE,
+    -> 	birth_date DATE,
+    -> 	login_time DATETIME,
+    -> 	logout_time DATETIME,
+    -> 	
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 11
+mysql> CREATE TABLE employee_attendance
+    -> (
+    -> 	emp_id INT PRIMARY KEY AUTO_INCREMENT,
+    -> 	emp_name VARCHAR(100),
+    -> 	department VARCHAR(50),
+    -> 	joining_date DATE,
+    -> 	birth_date DATE,
+    -> 	login_time DATETIME,
+    -> 	logout_time DATETIME,
+    -> 	salary DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (2.87 sec)
+
+mysql> 
+mysql> INSERT INTO employee_attendance
+    -> (emp_name, department, joining_date, birth_date, login_time, logout_time, salary)
+    -> VALUES
+    -> ('Rahul','IT','2021-06-15','1998-05-10','2024-11-20 09:05:10','2024-11-20 18:15:30',55000),
+    -> ('Sneha','HR','2020-03-21','1996-11-18','2024-11-21 08:55:20','2024-11-21 17:45:50',48000),
+    -> ('Arjun','Finance','2019-08-10','1994-07-30','2024-11-22 09:15:45','2024-11-22 18:35:20',62000),
+    -> ('Priya','IT','2022-01-05','2000-01-25','2024-11-23 09:00:00','2024-11-23 17:55:40',51000),
+    -> ('Kiran','Admin','2018-12-11','1992-09-15','2024-11-24 08:40:30','2024-11-24 17:30:00',45000),
+    -> ('Anjali','Testing','2023-04-17','1999-12-20','2024-11-25 09:12:10','2024-11-25 18:05:00',47000),
+    -> ('Vijay','IT','2021-09-14','1997-04-08','2024-11-26 09:08:15','2024-11-26 18:20:40',59000),
+    -> ('Divya','HR','2019-10-19','1995-06-11','2024-11-27 08:50:30','2024-11-27 17:42:15',50000),
+    -> ('Ramesh','Finance','2017-07-01','1991-08-14','2024-11-28 09:03:00','2024-11-28 18:12:00',70000),
+    -> ('Pooja','Testing','2022-05-09','2001-03-19','2024-11-29 09:18:50','2024-11-29 18:25:10',53000);
+Query OK, 10 rows affected (0.10 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEE_ATTENDANCE;
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+| emp_id | emp_name | department | joining_date | birth_date | login_time          | logout_time         | salary   |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+|      1 | Rahul    | IT         | 2021-06-15   | 1998-05-10 | 2024-11-20 09:05:10 | 2024-11-20 18:15:30 | 55000.00 |
+|      2 | Sneha    | HR         | 2020-03-21   | 1996-11-18 | 2024-11-21 08:55:20 | 2024-11-21 17:45:50 | 48000.00 |
+|      3 | Arjun    | Finance    | 2019-08-10   | 1994-07-30 | 2024-11-22 09:15:45 | 2024-11-22 18:35:20 | 62000.00 |
+|      4 | Priya    | IT         | 2022-01-05   | 2000-01-25 | 2024-11-23 09:00:00 | 2024-11-23 17:55:40 | 51000.00 |
+|      5 | Kiran    | Admin      | 2018-12-11   | 1992-09-15 | 2024-11-24 08:40:30 | 2024-11-24 17:30:00 | 45000.00 |
+|      6 | Anjali   | Testing    | 2023-04-17   | 1999-12-20 | 2024-11-25 09:12:10 | 2024-11-25 18:05:00 | 47000.00 |
+|      7 | Vijay    | IT         | 2021-09-14   | 1997-04-08 | 2024-11-26 09:08:15 | 2024-11-26 18:20:40 | 59000.00 |
+|      8 | Divya    | HR         | 2019-10-19   | 1995-06-11 | 2024-11-27 08:50:30 | 2024-11-27 17:42:15 | 50000.00 |
+|      9 | Ramesh   | Finance    | 2017-07-01   | 1991-08-14 | 2024-11-28 09:03:00 | 2024-11-28 18:12:00 | 70000.00 |
+|     10 | Pooja    | Testing    | 2022-05-09   | 2001-03-19 | 2024-11-29 09:18:50 | 2024-11-29 18:25:10 | 53000.00 |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+10 rows in set (0.01 sec)
+
+mysql> -- DISPLAY EMPLOYEES WHO JOINED IN CURRENT YEAR
+mysql> SELECT * FROM EMPLOYEE_ATTENDANCE
+    -> WHERE YEAR(JOINING_DATE) = YEAR(CURDATE());
+Empty set (0.02 sec)
+
+mysql> SELECT *
+    -> FROM employee_attendance
+    -> WHERE YEAR(joining_date) = YEAR(CURDATE());
+Empty set (0.00 sec)
+
+mysql> SELECT CURDATE(), YEAR(CURDATE());
++------------+-----------------+
+| CURDATE()  | YEAR(CURDATE()) |
++------------+-----------------+
+| 2026-07-06 |            2026 |
++------------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employee_attendance
+    -> WHERE YEAR(joining_date) = YEAR(CURDATE());
+Empty set (0.00 sec)
+
+mysql> -- 2. DISPLAY EMPLOYEES WHO BORN IN NOVEMBER
+mysql> SELECT * FROM EMPLOYEE_ATTENDANCE
+    -> WHERE MONTH(birth_date) = 11;
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+| emp_id | emp_name | department | joining_date | birth_date | login_time          | logout_time         | salary   |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+|      2 | Sneha    | HR         | 2020-03-21   | 1996-11-18 | 2024-11-21 08:55:20 | 2024-11-21 17:45:50 | 48000.00 |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+1 row in set (0.01 sec)
+
+mysql> -- display employees whose joining month is june.
+mysql> select * from employee_attendance
+    -> where month(joining_date) = 6;
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+| emp_id | emp_name | department | joining_date | birth_date | login_time          | logout_time         | salary   |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+|      1 | Rahul    | IT         | 2021-06-15   | 1998-05-10 | 2024-11-20 09:05:10 | 2024-11-20 18:15:30 | 55000.00 |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+1 row in set (0.00 sec)
+
+mysql> -- 4. display employees whose birthday falls on the 10th day
+mysql> select * from employee_attendance
+    -> where day(bith_date) = 10;
+ERROR 1054 (42S22): Unknown column 'bith_date' in 'where clause'
+mysql> SELECT *
+    -> FROM employee_attendance
+    -> WHERE DAY(birth_date) = 10;
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+| emp_id | emp_name | department | joining_date | birth_date | login_time          | logout_time         | salary   |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+|      1 | Rahul    | IT         | 2021-06-15   | 1998-05-10 | 2024-11-20 09:05:10 | 2024-11-20 18:15:30 | 55000.00 |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+1 row in set (0.04 sec)
+
+mysql> -- 5. display employees who joined in Quater 2
+mysql> select * from employee_attendance
+    -> where QUATER(joining_date)=2;
+ERROR 1305 (42000): FUNCTION pfs3.QUATER does not exist
+mysql> SELECT *
+    -> FROM employee_attendance
+    -> WHERE QUARTER(joining_date) = 2;
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+| emp_id | emp_name | department | joining_date | birth_date | login_time          | logout_time         | salary   |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+|      1 | Rahul    | IT         | 2021-06-15   | 1998-05-10 | 2024-11-20 09:05:10 | 2024-11-20 18:15:30 | 55000.00 |
+|      6 | Anjali   | Testing    | 2023-04-17   | 1999-12-20 | 2024-11-25 09:12:10 | 2024-11-25 18:05:00 | 47000.00 |
+|     10 | Pooja    | Testing    | 2022-05-09   | 2001-03-19 | 2024-11-29 09:18:50 | 2024-11-29 18:25:10 | 53000.00 |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+3 rows in set (0.01 sec)
+
+mysql> -- 6. display employees names and their age in year(use TIMESTAMPDIFF()).
+mysql> select emp_name, TIMESTAMPDIFF(YEAR,birth_date,CURDATE()) AS age
+    -> from employee_attendance;
++----------+------+
+| emp_name | age  |
++----------+------+
+| Rahul    |   28 |
+| Sneha    |   29 |
+| Arjun    |   31 |
+| Priya    |   26 |
+| Kiran    |   33 |
+| Anjali   |   26 |
+| Vijay    |   29 |
+| Divya    |   31 |
+| Ramesh   |   34 |
+| Pooja    |   25 |
++----------+------+
+10 rows in set (0.01 sec)
+
+mysql> -- 7. display employees who have completed more than 3 years in the compnay
+mysql> select * from employee_attendance
+    -> where TIMESTAMPDIFF(YEAR,joining_date,CURDATE()) > 3;
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+| emp_id | emp_name | department | joining_date | birth_date | login_time          | logout_time         | salary   |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+|      1 | Rahul    | IT         | 2021-06-15   | 1998-05-10 | 2024-11-20 09:05:10 | 2024-11-20 18:15:30 | 55000.00 |
+|      2 | Sneha    | HR         | 2020-03-21   | 1996-11-18 | 2024-11-21 08:55:20 | 2024-11-21 17:45:50 | 48000.00 |
+|      3 | Arjun    | Finance    | 2019-08-10   | 1994-07-30 | 2024-11-22 09:15:45 | 2024-11-22 18:35:20 | 62000.00 |
+|      4 | Priya    | IT         | 2022-01-05   | 2000-01-25 | 2024-11-23 09:00:00 | 2024-11-23 17:55:40 | 51000.00 |
+|      5 | Kiran    | Admin      | 2018-12-11   | 1992-09-15 | 2024-11-24 08:40:30 | 2024-11-24 17:30:00 | 45000.00 |
+|      7 | Vijay    | IT         | 2021-09-14   | 1997-04-08 | 2024-11-26 09:08:15 | 2024-11-26 18:20:40 | 59000.00 |
+|      8 | Divya    | HR         | 2019-10-19   | 1995-06-11 | 2024-11-27 08:50:30 | 2024-11-27 17:42:15 | 50000.00 |
+|      9 | Ramesh   | Finance    | 2017-07-01   | 1991-08-14 | 2024-11-28 09:03:00 | 2024-11-28 18:12:00 | 70000.00 |
+|     10 | Pooja    | Testing    | 2022-05-09   | 2001-03-19 | 2024-11-29 09:18:50 | 2024-11-29 18:25:10 | 53000.00 |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+9 rows in set (0.01 sec)
+
+mysql> -- 8. DISPLAY EMP NAMES AND THEIR TOTAL WORKING HOURS
+mysql> SELECT emp_name,TIMEDIFF(logout_time,login_time) as working_hours
+    -> from employee_attendance;
++----------+---------------+
+| emp_name | working_hours |
++----------+---------------+
+| Rahul    | 09:10:20      |
+| Sneha    | 08:50:30      |
+| Arjun    | 09:19:35      |
+| Priya    | 08:55:40      |
+| Kiran    | 08:49:30      |
+| Anjali   | 08:52:50      |
+| Vijay    | 09:12:25      |
+| Divya    | 08:51:45      |
+| Ramesh   | 09:09:00      |
+| Pooja    | 09:06:20      |
++----------+---------------+
+10 rows in set (0.07 sec)
+
+mysql> -- 9. display emp names and working minutes
+mysql> select emp_name, TIMEDIFF(MINUTE,login_time,logout_time) as working_time_min
+    -> from employee_attendance;
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'TIMEDIFF'
+mysql> select emp_name, TIMESTAMPDIFF(MINUTE,login_time,logout_time) as working_time_min
+    -> from employee_attendance;
++----------+------------------+
+| emp_name | working_time_min |
++----------+------------------+
+| Rahul    |              550 |
+| Sneha    |              530 |
+| Arjun    |              559 |
+| Priya    |              535 |
+| Kiran    |              529 |
+| Anjali   |              532 |
+| Vijay    |              552 |
+| Divya    |              531 |
+| Ramesh   |              549 |
+| Pooja    |              546 |
++----------+------------------+
+10 rows in set (0.00 sec)
+
+mysql> -- 10. DISPLAY EMP WHOSE LOGIN TIME IS BEFORE 9 AM
+mysql> SELECT * FROM EMPLOYEE_ATTENDACE
+    -> WHERE TIME(LOGIN_TIME)< '09:00:00';
+ERROR 1146 (42S02): Table 'pfs3.employee_attendace' doesn't exist
+mysql> SELECT * FROM EMPLOYEE_ATTENDACE
+    -> WHERE TIME(LOGIN_TIME)< '09:00:00';
+ERROR 1146 (42S02): Table 'pfs3.employee_attendace' doesn't exist
+mysql> SELECT * FROM EMPLOYEE_ATTENDANCE
+    -> WHERE TIME(LOGIN_TIME)< '09:00:00';
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+| emp_id | emp_name | department | joining_date | birth_date | login_time          | logout_time         | salary   |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+|      2 | Sneha    | HR         | 2020-03-21   | 1996-11-18 | 2024-11-21 08:55:20 | 2024-11-21 17:45:50 | 48000.00 |
+|      5 | Kiran    | Admin      | 2018-12-11   | 1992-09-15 | 2024-11-24 08:40:30 | 2024-11-24 17:30:00 | 45000.00 |
+|      8 | Divya    | HR         | 2019-10-19   | 1995-06-11 | 2024-11-27 08:50:30 | 2024-11-27 17:42:15 | 50000.00 |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+3 rows in set (0.01 sec)
+
+mysql> -- 11. LOGED IN AFTER 9:10 AM
+mysql> SELECT * FROM EMPLOYEE_ATTENDANCE
+    -> WHERE TIME(LOGIN_TIME) > '09:10:00';
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+| emp_id | emp_name | department | joining_date | birth_date | login_time          | logout_time         | salary   |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+|      3 | Arjun    | Finance    | 2019-08-10   | 1994-07-30 | 2024-11-22 09:15:45 | 2024-11-22 18:35:20 | 62000.00 |
+|      6 | Anjali   | Testing    | 2023-04-17   | 1999-12-20 | 2024-11-25 09:12:10 | 2024-11-25 18:05:00 | 47000.00 |
+|     10 | Pooja    | Testing    | 2022-05-09   | 2001-03-19 | 2024-11-29 09:18:50 | 2024-11-29 18:25:10 | 53000.00 |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> --12. DISPLAY EMPLOYEES WHOSE JOINING DATE FALLS ON MONDAY
+    -> SELECT *
+    -> FROM employee_attendance
+    -> WHERE DAYNAME(joining_date) = 'Monday';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--12. DISPLAY EMPLOYEES WHOSE JOINING DATE FALLS ON MONDAY
+SELECT *
+FROM employe' at line 1
+mysql> SELECT *
+    -> FROM employee_attendance
+    -> WHERE DAYNAME(joining_date) = 'Monday';
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+| emp_id | emp_name | department | joining_date | birth_date | login_time          | logout_time         | salary   |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+|      6 | Anjali   | Testing    | 2023-04-17   | 1999-12-20 | 2024-11-25 09:12:10 | 2024-11-25 18:05:00 | 47000.00 |
+|     10 | Pooja    | Testing    | 2022-05-09   | 2001-03-19 | 2024-11-29 09:18:50 | 2024-11-29 18:25:10 | 53000.00 |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+2 rows in set (0.01 sec)
+
+mysql> -- 13. DISPLAY EMP WHOSE BIRTH MONTH NAME STARTS WITH 'J'
+mysql> SELECT * FROM EMPLOYEE_ATTENDANCE
+    -> WHERE MONTHNAME(birth_date) like 'J%';
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+| emp_id | emp_name | department | joining_date | birth_date | login_time          | logout_time         | salary   |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+|      3 | Arjun    | Finance    | 2019-08-10   | 1994-07-30 | 2024-11-22 09:15:45 | 2024-11-22 18:35:20 | 62000.00 |
+|      4 | Priya    | IT         | 2022-01-05   | 2000-01-25 | 2024-11-23 09:00:00 | 2024-11-23 17:55:40 | 51000.00 |
+|      8 | Divya    | HR         | 2019-10-19   | 1995-06-11 | 2024-11-27 08:50:30 | 2024-11-27 17:42:15 | 50000.00 |
++--------+----------+------------+--------------+------------+---------------------+---------------------+----------+
+3 rows in set (0.05 sec)
+
+mysql> -- 14. display employees who joined in week number 25
+mysql> select * from employee_attendance
+    -> where week(joining_date) = 25;
+Empty set (0.01 sec)
+
+mysql> SELECT *
+    -> FROM employee_attendance
+    -> WHERE WEEK(joining_date) = 25;
+Empty set (0.01 sec)
+
+mysql> SELECT emp_name,
+    ->        joining_date
+    -> FROM employee_attendance
+    -> WHERE WEEK(joining_date) = 25;
+Empty set (0.00 sec)
+
+mysql> SELECT emp_name,
+    ->        joining_date
+    -> FROM employee_attendance
+    -> WHERE WEEK(joining_date) = 05;
+Empty set (0.04 sec)
+
+mysql> SELECT emp_name,
+    ->        joining_date,
+    ->        WEEK(joining_date,0) AS mode0,
+    ->        WEEK(joining_date,1) AS mode1
+    -> FROM employee_attendance;
++----------+--------------+-------+-------+
+| emp_name | joining_date | mode0 | mode1 |
++----------+--------------+-------+-------+
+| Rahul    | 2021-06-15   |    24 |    24 |
+| Sneha    | 2020-03-21   |    11 |    12 |
+| Arjun    | 2019-08-10   |    31 |    32 |
+| Priya    | 2022-01-05   |     1 |     1 |
+| Kiran    | 2018-12-11   |    49 |    50 |
+| Anjali   | 2023-04-17   |    16 |    16 |
+| Vijay    | 2021-09-14   |    37 |    37 |
+| Divya    | 2019-10-19   |    41 |    42 |
+| Ramesh   | 2017-07-01   |    26 |    26 |
+| Pooja    | 2022-05-09   |    19 |    19 |
++----------+--------------+-------+-------+
+10 rows in set (0.00 sec)
+
+mysql> -- 15. display employees names and the last day of their birth month
+mysql> select emp_name, last_day(birth_date) as last_day
+    -> from employee_attendance;
++----------+------------+
+| emp_name | last_day   |
++----------+------------+
+| Rahul    | 1998-05-31 |
+| Sneha    | 1996-11-30 |
+| Arjun    | 1994-07-31 |
+| Priya    | 2000-01-31 |
+| Kiran    | 1992-09-30 |
+| Anjali   | 1999-12-31 |
+| Vijay    | 1997-04-30 |
+| Divya    | 1995-06-30 |
+| Ramesh   | 1991-08-31 |
+| Pooja    | 2001-03-31 |
++----------+------------+
+10 rows in set (0.00 sec)
+
+mysql> -- 16. display employee names with joining date after adding one year
+mysql> select emp_name,joining_date,DATE_ADD(joining_date, INTERVAL 1 YEAR) as new_joining_date
+    -> from employee_attendance;
++----------+--------------+------------------+
+| emp_name | joining_date | new_joining_date |
++----------+--------------+------------------+
+| Rahul    | 2021-06-15   | 2022-06-15       |
+| Sneha    | 2020-03-21   | 2021-03-21       |
+| Arjun    | 2019-08-10   | 2020-08-10       |
+| Priya    | 2022-01-05   | 2023-01-05       |
+| Kiran    | 2018-12-11   | 2019-12-11       |
+| Anjali   | 2023-04-17   | 2024-04-17       |
+| Vijay    | 2021-09-14   | 2022-09-14       |
+| Divya    | 2019-10-19   | 2020-10-19       |
+| Ramesh   | 2017-07-01   | 2018-07-01       |
+| Pooja    | 2022-05-09   | 2023-05-09       |
++----------+--------------+------------------+
+10 rows in set (0.00 sec)
+
+mysql> -- 17. joining date before subtracting two months
+mysql> select emp_name,joining_date,DATE_SUB(joining_date, INTERVAL 2 YEAR) as new_joining_date
+    -> from employee_attendance;
++----------+--------------+------------------+
+| emp_name | joining_date | new_joining_date |
++----------+--------------+------------------+
+| Rahul    | 2021-06-15   | 2019-06-15       |
+| Sneha    | 2020-03-21   | 2018-03-21       |
+| Arjun    | 2019-08-10   | 2017-08-10       |
+| Priya    | 2022-01-05   | 2020-01-05       |
+| Kiran    | 2018-12-11   | 2016-12-11       |
+| Anjali   | 2023-04-17   | 2021-04-17       |
+| Vijay    | 2021-09-14   | 2019-09-14       |
+| Divya    | 2019-10-19   | 2017-10-19       |
+| Ramesh   | 2017-07-01   | 2015-07-01       |
+| Pooja    | 2022-05-09   | 2020-05-09       |
++----------+--------------+------------------+
+10 rows in set (0.04 sec)
+
+
+Set Operations
+------------------------------
+
+1. Union : combines results from two quries and removes duplicate rows columns must have the same number and type
+
+2. Union All : combines results from two quries including duplicate rows. columns must have the same number and type
+
+3. Intersect : returns the rows that are common on both quires columns must have same number and type
+
+note : MySQL doesn't support intersect directly
+
+4. Minus : returns the rows from the first query that are not present in the second query cols must have same number and type
+
+Note : MySQL doesn't support Minus directly
+
+
+mysql> CREATE TABLE Course (
+    ->  course_id INT,
+    ->     course_name VARCHAR(100),
+    ->  instructor VARCHAR(100)
+    -> );
+Query OK, 0 rows affected (0.70 sec)
+
+mysql> INSERT INTO Course (course_id, course_name, instructor) VALUES
+    -> (1, 'Mathematics', 'Dr. Smith'),
+    -> (2, 'Physics', 'Dr. Johnson'),
+    -> (3, 'Chemistry', 'Dr. Brown'),
+    -> (4, 'Biology', 'Dr. Lee'),
+    -> (5, 'History', 'Dr. Martin');
+Query OK, 5 rows affected (0.09 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE Course_Completed (
+    ->  course_id INT,
+    ->  course_name VARCHAR(100),
+    ->  instructor VARCHAR(100)
+    -> );
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> INSERT INTO Course_Completed (course_id, course_name, instructor) VALUES
+    -> (2, 'Physics', 'Dr. Johnson'),
+    -> (3, 'Chemistry', 'Dr. Brown'),
+    -> (6, 'Computer Science', 'Dr. Walker'),
+    -> (7, 'Art', 'Dr. Scott');
+Query OK, 4 rows affected (0.04 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from course;
++-----------+-------------+-------------+
+| course_id | course_name | instructor  |
++-----------+-------------+-------------+
+|         1 | Mathematics | Dr. Smith   |
+|         2 | Physics     | Dr. Johnson |
+|         3 | Chemistry   | Dr. Brown   |
+|         4 | Biology     | Dr. Lee     |
+|         5 | History     | Dr. Martin  |
++-----------+-------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from course_completed;
++-----------+------------------+-------------+
+| course_id | course_name      | instructor  |
++-----------+------------------+-------------+
+|         2 | Physics          | Dr. Johnson |
+|         3 | Chemistry        | Dr. Brown   |
+|         6 | Computer Science | Dr. Walker  |
+|         7 | Art              | Dr. Scott   |
++-----------+------------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql>
+mysql> -- combine course names from both table removing duplicates
+mysql> select course_name from course
+    -> union
+    -> select course_name from course_completed;
++------------------+
+| course_name      |
++------------------+
+| Mathematics      |
+| Physics          |
+| Chemistry        |
+| Biology          |
+| History          |
+| Computer Science |
+| Art              |
++------------------+
+7 rows in set (0.19 sec)
+
+mysql> -- combine instructor name from both tables removing duplicates
+mysql> SELECT instructor
+    -> FROM Course
+    -> 
+    -> UNION
+    -> 
+    -> SELECT instructor
+    -> FROM Course_Completed;
++-------------+
+| instructor  |
++-------------+
+| Dr. Smith   |
+| Dr. Johnson |
+| Dr. Brown   |
+| Dr. Lee     |
+| Dr. Martin  |
+| Dr. Walker  |
+| Dr. Scott   |
++-------------+
+7 rows in set (0.01 sec)
+
+mysql> -- union all - combine cousre names from both tables including duplicates
+mysql> SELECT course_name FROM Course
+    -> UNION ALL
+    -> SELECT course_name FROM Course_Completed;
++------------------+
+| course_name      |
++------------------+
+| Mathematics      |
+| Physics          |
+| Chemistry        |
+| Biology          |
+| History          |
+| Physics          |
+| Chemistry        |
+| Computer Science |
+| Art              |
++------------------+
+9 rows in set (0.01 sec)
+
+mysql> -- 2. Combine all records from both tables, including duplicates
+mysql> SELECT course_id, course_name, instructor FROM Course
+    -> UNION ALL
+    -> SELECT course_id, course_name, instructor FROM Course_Completed;
++-----------+------------------+-------------+
+| course_id | course_name      | instructor  |
++-----------+------------------+-------------+
+|         1 | Mathematics      | Dr. Smith   |
+|         2 | Physics          | Dr. Johnson |
+|         3 | Chemistry        | Dr. Brown   |
+|         4 | Biology          | Dr. Lee     |
+|         5 | History          | Dr. Martin  |
+|         2 | Physics          | Dr. Johnson |
+|         3 | Chemistry        | Dr. Brown   |
+|         6 | Computer Science | Dr. Walker  |
+|         7 | Art              | Dr. Scott   |
++-----------+------------------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> NOTEE
